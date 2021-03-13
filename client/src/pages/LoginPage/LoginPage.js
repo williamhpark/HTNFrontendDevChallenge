@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 
 import "./LoginPage.css";
 import { UserContext } from "../../context/UserContext";
-import ErrorNotice from "../../components/ErrorNotice/ErrorNotice";
 
 const LoginPage = () => {
   const { setUserData } = useContext(UserContext);
@@ -37,8 +36,6 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    // Reset the room ID
-    localStorage.setItem("room-id", "");
     setUserData({ token: undefined, user: undefined });
   }, []);
 
@@ -70,7 +67,7 @@ const LoginPage = () => {
           value="Login"
         />
       </form>
-      {error && <p>{error}</p>}
+      {error && <p className="error-msg">{error}</p>}
     </div>
   );
 };

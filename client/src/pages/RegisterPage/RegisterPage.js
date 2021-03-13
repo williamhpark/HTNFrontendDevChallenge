@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 
 import "./RegisterPage.css";
 import { UserContext } from "../../context/UserContext";
-import ErrorNotice from "../../components/ErrorNotice/ErrorNotice";
 
 const RegisterPage = () => {
   const { setUserData } = useContext(UserContext);
@@ -32,8 +31,6 @@ const RegisterPage = () => {
       setUserData({ token: loginRes.data.token, user: loginRes.data.user });
       // Set the auth-token in the browser
       localStorage.setItem("auth-token", loginRes.data.token);
-      // Reset the room ID
-      localStorage.setItem("room-id", "");
 
       // Redirect user to the Home page
       history.push("/");
@@ -45,9 +42,6 @@ const RegisterPage = () => {
   };
 
   useEffect(() => {
-    // Reset the room ID
-    localStorage.setItem("room-id", "");
-
     setUserData({ token: undefined, user: undefined });
   }, []);
 
@@ -96,7 +90,7 @@ const RegisterPage = () => {
           value="Register"
         />
       </form>
-      {error && <p>{error}</p>}
+      {error && <p className="error-msg">{error}</p>}
     </div>
   );
 };

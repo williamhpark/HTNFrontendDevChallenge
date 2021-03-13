@@ -43,3 +43,8 @@ input[type="submit"] {
   background-repeat: repeat-x;
   background-size: 4px 6px;
 }
+
+.error-msg {
+  color: red;
+  margin-top: 2rem;
+}

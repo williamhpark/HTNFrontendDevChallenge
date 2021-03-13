@@ -32,7 +32,7 @@ mongoose.connect(
 );
 
 // Routes Config
-app.use("/api/user", require("./routes/userRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
 
 // Listener
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
