@@ -1,0 +1,13 @@
+.tag-item {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0.2rem 0.4rem;
+  margin: 0 0.25rem;
+  border-radius: 10px;
+  background: white;
+}
+
+.tag-item .clear-btn {
+  cursor: pointer;
+  margin-left: 0.5rem;
+}

@@ -18,6 +18,7 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Login");
 
     try {
       const newUser = { name, email, password, passwordCheck };

@@ -13,7 +13,7 @@ const UserProvider = ({ children }) => {
     let token = localStorage.getItem("auth-token");
 
     // Checking if the auth-token key does not exist in local storage
-    if (token === null) {
+    if (token === undefined) {
       localStorage.setItem("auth-token", "");
       token = "";
     }

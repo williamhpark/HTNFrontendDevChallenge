@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import "./SearchBar.css";
+import TagItem from "../TagItem/TagItem";
 
 const EVENT_TYPES = ["workshop", "tech_talk", "activity"];
 
@@ -9,13 +10,12 @@ const SearchBar = (props) => {
   const [keywords, setKeywords] = useState([]);
   const [category, setCategory] = useState("all");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const updateDisplayedEvents = (keywordsArray) => {
     const filtered = props.defaultData.filter((item) => {
       // The event name/description/speakers contains at least one of the keywords and matches the selected event type
       return (
-        (keywords.length === 0 ||
-          keywords.some(
+        (keywordsArray.length === 0 ||
+          keywordsArray.some(
             (keyword) =>
               item.name.toLowerCase().includes(keyword.toLowerCase()) ||
               item.description.toLowerCase().includes(keyword.toLowerCase()) ||
@@ -27,6 +27,11 @@ const SearchBar = (props) => {
       );
     });
     props.setDisplayedData(filtered);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    updateDisplayedEvents(keywords);
   };
 
   const handleKeyDown = (e) => {
@@ -44,13 +49,23 @@ const SearchBar = (props) => {
       .join(" ");
   };
 
+  const removeKeyword = (keyword) => {
+    const filtered = keywords.filter((item) => item !== keyword);
+    setKeywords(filtered);
+    updateDisplayedEvents(filtered);
+  };
+
   return (
     <div className="search-bar">
       {keywords.length > 0 && (
-        <p>
-          <b>Keywords: </b>
-          {keywords.join(", ")}
-        </p>
+        <div className="tags-container">
+          <p>
+            <b>Keywords: </b>
+          </p>
+          {keywords.map((keyword) => {
+            return <TagItem name={keyword} removeTag={removeKeyword} />;
+          })}
+        </div>
       )}
       <form className="form-group" onSubmit={handleSubmit}>
         <input
@@ -71,7 +86,7 @@ const SearchBar = (props) => {
           </option>
           {EVENT_TYPES.map((type) => {
             return (
-              <option value={type}>
+              <option key={type} value={type}>
                 {toTitleCase(type.replace(/_/g, " "))}
               </option>
             );
