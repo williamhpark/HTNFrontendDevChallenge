@@ -5,18 +5,15 @@ const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
 
-// APP CONFIG //
-
+// App config
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// MIDDLEWARE //
-
+// Middleware
 app.use(express.json());
 app.use(cors());
 
-// DB CONFIG //
-
+// DB Config
 console.log("Connecting to MongoDB...");
 mongoose.connect(
   process.env.MONGODB_URI,
@@ -34,16 +31,13 @@ mongoose.connect(
   }
 );
 
-// ROUTES CONFIG //
-
+// Routes Config
 app.use("/api/user", require("./routes/userRoutes"));
 
-// LISTENER
-
+// Listener
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
 
-// DEPLOYMENT CODE
-
+// Serving assets to Heroku
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 

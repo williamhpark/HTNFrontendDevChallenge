@@ -1,0 +1,14 @@
+.search-bar {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-bar form {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.search-bar form input[type="text"] {
+  width: 20rem;
+}

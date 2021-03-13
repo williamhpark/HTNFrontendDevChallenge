@@ -2,17 +2,15 @@ import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-import "./RegisterPage.css";
+import "./LoginPage.css";
 import { UserContext } from "../../context/UserContext";
 import ErrorNotice from "../../components/ErrorNotice/ErrorNotice";
 
-const RegisterPage = () => {
+const LoginPage = () => {
   const { setUserData } = useContext(UserContext);
 
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
   const [error, setError] = useState("");
 
   const history = useHistory();
@@ -21,21 +19,15 @@ const RegisterPage = () => {
     e.preventDefault();
 
     try {
-      const newUser = { name, email, password, passwordCheck };
-      // Send the new user data to the /register API endpoint
-      await axios.post("/api/users/register", newUser);
-      const loginRes = await axios.post("/api/users/login", {
-        email,
-        password,
-      });
+      const loginUser = { email, password };
+      const loginRes = await axios.post("/api/users/login", loginUser);
       // Update the UserContext state
       setUserData({ token: loginRes.data.token, user: loginRes.data.user });
+
       // Set the auth-token in the browser
       localStorage.setItem("auth-token", loginRes.data.token);
-      // Reset the room ID
-      localStorage.setItem("room-id", "");
 
-      // Redirect user to the Home page
+      // Redirect user to the Event List Page
       history.push("/");
     } catch (err) {
       if (err.response.data.msg) {
@@ -47,58 +39,41 @@ const RegisterPage = () => {
   useEffect(() => {
     // Reset the room ID
     localStorage.setItem("room-id", "");
-
     setUserData({ token: undefined, user: undefined });
   }, []);
 
   return (
-    <div className="register-page">
-      <h2>Register</h2>
-      <form className="register-page__form form" onSubmit={handleSubmit}>
+    <div className="login-page">
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="register-name">Full name</label>
+          <label htmlFor="login-email">Email</label>
           <input
-            id="register-name"
-            type="text"
-            className="form-control"
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="register-email">Email</label>
-          <input
-            id="register-email"
+            id="login-email"
             type="email"
             className="form-control"
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="register-password">Password</label>
+          <label htmlFor="login-password">Password</label>
           <input
-            id="register-password"
+            id="login-password"
             type="password"
             className="form-control"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Verify password"
-            className="form-control"
-            onChange={(e) => setPasswordCheck(e.target.value)}
-          />
-        </div>
         <input
           className="btn btn-primary btn-block"
           type="submit"
-          value="Register"
+          value="Login"
         />
       </form>
+
       {error && <ErrorNotice message={error} clearError={() => setError("")} />}
     </div>
   );
 };
 
-export default RegisterPage;
+export default LoginPage;
