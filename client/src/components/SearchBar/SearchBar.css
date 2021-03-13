@@ -10,5 +10,9 @@
 }
 
 .search-bar form input[type="text"] {
-  width: 20rem;
+  width: 25rem;
+}
+
+.search-bar form select {
+  width: 10rem;
 }

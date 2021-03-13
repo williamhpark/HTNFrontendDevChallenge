@@ -6,7 +6,7 @@ import logo from "../../assets/images/htn_icon.png";
 
 const Header = () => {
   return (
-    <div>
+    <div className="header">
       <Link className="logo" to="/">
         <img src={logo} alt="Hack the North logo" />
       </Link>

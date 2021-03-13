@@ -96,7 +96,7 @@ const RegisterPage = () => {
           value="Register"
         />
       </form>
-      {error && <ErrorNotice message={error} clearError={() => setError("")} />}
+      {error && <p>{error}</p>}
     </div>
   );
 };

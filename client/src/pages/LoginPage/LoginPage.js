@@ -70,8 +70,7 @@ const LoginPage = () => {
           value="Login"
         />
       </form>
-
-      {error && <ErrorNotice message={error} clearError={() => setError("")} />}
+      {error && <p>{error}</p>}
     </div>
   );
 };

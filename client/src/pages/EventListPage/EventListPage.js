@@ -33,14 +33,25 @@ const EventListPage = () => {
     return a.start_time - b.start_time;
   });
 
+  const epochToTime = (epochDate) => {
+    const date = new Date(epochDate);
+    const hours = date.getHours();
+    const minutes =
+      date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+    return `${hours}:${minutes}`;
+  };
+
   return (
     <div className="event-list-page">
-      <SearchBar
-        defaultData={events}
-        setDefaultData={setEvents}
-        displayedData={displayedEvents}
-        setDisplayedData={setDisplayedEvents}
-      />
+      <h2>Events</h2>
+      <div className="search-bar-container">
+        <SearchBar
+          defaultData={events}
+          setDefaultData={setEvents}
+          displayedData={displayedEvents}
+          setDisplayedData={setDisplayedEvents}
+        />
+      </div>
       {events.length > 0 ? (
         eventsSorted.map((event) => {
           if (
@@ -49,13 +60,16 @@ const EventListPage = () => {
           ) {
             return (
               <Link
-                className="link"
+                className="link event"
                 key={event.id}
                 to={`/${event.name.replace(/\s/g, "")}`}
                 onClick={() => setEventData(event)}
               >
                 <h3>{event.name}</h3>
-                <p>{Date(event.start_time * 1000)}</p>
+                <p>
+                  {epochToTime(event.start_time)} -{" "}
+                  {epochToTime(event.end_time)}
+                </p>
               </Link>
             );
           }

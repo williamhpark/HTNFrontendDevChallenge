@@ -46,12 +46,15 @@ const SearchBar = (props) => {
 
   return (
     <div className="search-bar">
-      <h2>Event Search</h2>
-      {keywords.map((keyword) => {
-        return <p>{keyword}</p>;
-      })}
-      <form onSubmit={handleSubmit}>
+      {keywords.length > 0 && (
+        <p>
+          <b>Keywords: </b>
+          {keywords.join(", ")}
+        </p>
+      )}
+      <form className="form-group" onSubmit={handleSubmit}>
         <input
+          className="form-control"
           type="text"
           placeholder="Search keywords..."
           value={input}
@@ -59,11 +62,13 @@ const SearchBar = (props) => {
           onKeyDown={handleKeyDown}
         />
         <select
+          className="form-control"
           value={category}
-          selected="all"
           onChange={(e) => setCategory(e.target.value)}
         >
-          <option value="all">All Types</option>
+          <option selected value="all">
+            All Types
+          </option>
           {EVENT_TYPES.map((type) => {
             return (
               <option value={type}>

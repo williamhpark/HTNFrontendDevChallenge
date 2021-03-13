@@ -1,5 +1,14 @@
 .event-list-page {
   display: flex;
   flex-direction: column;
+  align-items: center;
   text-align: center;
+}
+
+.search-bar-container {
+  margin: 2rem 0;
+}
+
+.event-list-page .link {
+  margin: 0.5rem 0;
 }
