@@ -33,12 +33,40 @@ const EventListPage = () => {
     return a.start_time - b.start_time;
   });
 
+  const epochToDate = (epochDate) => {
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const date = new Date(epochDate);
+    return `${
+      monthNames[date.getMonth()]
+    } ${date.getDate()}, ${date.getFullYear()}`;
+  };
+
   const epochToTime = (epochDate) => {
     const date = new Date(epochDate);
-    const hours = date.getHours();
+    let hours = date.getHours();
+    let period = "am";
+    if (hours > 12) {
+      hours = hours - 12;
+      period = "pm";
+    } else if (hours === 0) {
+      hours = 12;
+    }
     const minutes =
       date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
-    return `${hours}:${minutes}`;
+    return `${hours}:${minutes}${period}`;
   };
 
   return (
@@ -66,6 +94,7 @@ const EventListPage = () => {
                 onClick={() => setEventData(event)}
               >
                 <h3>{event.name}</h3>
+                <p>{epochToDate(event.start_time)}</p>
                 <p>
                   {epochToTime(event.start_time)} -{" "}
                   {epochToTime(event.end_time)}

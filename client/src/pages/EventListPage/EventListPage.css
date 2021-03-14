@@ -12,3 +12,7 @@
 .event-list-page .link {
   margin: 0.5rem 0;
 }
+
+.event-list-page p {
+  margin: 0.5rem;
+}

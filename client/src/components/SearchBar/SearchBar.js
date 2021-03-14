@@ -35,7 +35,8 @@ const SearchBar = (props) => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && input) {
+    // Note: The max number of keywords is 5
+    if (e.key === "Enter" && input && keywords.length < 5) {
       setKeywords([...keywords, input]);
       setInput("");
     }

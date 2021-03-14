@@ -3,8 +3,10 @@
   --text-color: #424141;
 }
 
-* {
+*,
+html {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -31,6 +33,7 @@ input[type="submit"] {
 .link:hover {
   text-decoration: none;
   color: var(--text-color);
+  cursor: pointer;
 }
 
 .link:hover {
