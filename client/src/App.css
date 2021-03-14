@@ -26,7 +26,7 @@ input[type="submit"] {
 }
 
 .app {
-  padding: 2rem 5rem;
+  padding: 3rem 2rem;
 }
 
 .link,
@@ -50,4 +50,11 @@ input[type="submit"] {
 .error-msg {
   color: red;
   margin-top: 2rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .app {
+    padding: 2rem 5rem;
+  }
 }

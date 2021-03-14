@@ -1,6 +1,21 @@
 .register-page {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+}
+
+.register-form {
+  width: 15rem;
+}
+
+.register-form input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .register-form {
+    width: 30rem;
+  }
 }

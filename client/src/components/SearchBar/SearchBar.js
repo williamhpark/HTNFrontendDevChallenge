@@ -93,7 +93,7 @@ const SearchBar = (props) => {
           })}
         </select>
         <input
-          className="btn btn-secondary btn-sm"
+          className="btn btn-primary btn-sm"
           type="submit"
           value="Search"
         />

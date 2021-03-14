@@ -50,7 +50,7 @@ const RegisterPage = () => {
   return (
     <div className="register-page">
       <h2>Register</h2>
-      <form className="register-page__form form" onSubmit={handleSubmit}>
+      <form className="register-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="register-name">Full name</label>
           <input

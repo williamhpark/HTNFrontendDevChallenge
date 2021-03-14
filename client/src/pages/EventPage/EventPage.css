@@ -3,7 +3,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 10rem;
+}
+
+.event-page h1 {
+  text-align: center;
 }
 
 .event-info-container {
@@ -16,4 +19,10 @@
 
 .event-description {
   margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .event-page {
+    padding: 0 10rem;
+  }
 }
