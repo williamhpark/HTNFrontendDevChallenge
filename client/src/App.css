@@ -34,17 +34,24 @@ input[type="submit"] {
   text-decoration: none;
   color: var(--text-color);
   cursor: pointer;
+  position: relative;
 }
 
-.link:hover {
-  background: linear-gradient(
-    to bottom,
-    var(--highlight-color) 0%,
-    var(--highlight-color) 100%
-  );
-  background-position: 0 100%;
-  background-repeat: repeat-x;
-  background-size: 4px 6px;
+.link:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 4px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--highlight-color);
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.link:hover:before {
+  visibility: visible;
+  width: 100%;
 }
 
 .error-msg {
