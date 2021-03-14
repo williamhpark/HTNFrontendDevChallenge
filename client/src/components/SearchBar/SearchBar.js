@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./SearchBar.css";
 import TagItem from "../TagItem/TagItem";
@@ -12,14 +12,14 @@ const SearchBar = (props) => {
   const [keywords, setKeywords] = useState([]);
   const [category, setCategory] = useState("all");
 
-  const updateDisplayedEvents = (keywordsArray) => {
+  const updateDisplayedEvents = () => {
     const filtered = props.defaultData.filter((item) => {
       // The event gets displayed if both conditions below are met.
       return (
         // Condition 1
         // True if no keywords have been inputted or the event's name/description/speakers contains at least one of the keywords.
-        (keywordsArray.length === 0 ||
-          keywordsArray.some(
+        (keywords.length === 0 ||
+          keywords.some(
             (keyword) =>
               item.name.toLowerCase().includes(keyword.toLowerCase()) ||
               item.description.toLowerCase().includes(keyword.toLowerCase()) ||
@@ -35,17 +35,17 @@ const SearchBar = (props) => {
     props.setDisplayedData(filtered);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    updateDisplayedEvents(keywords);
-  };
-
   // Adds the inputted keyword to the keywords array when the user clicks "Enter"
   const handleKeyDown = (e) => {
     // Note: The max number of keywords allowed is 5
     if (e.key === "Enter" && input && keywords.length < 5) {
+      e.preventDefault();
       setKeywords([...keywords, input]);
       setInput("");
+    } else if (keywords.length === 5) {
+      e.preventDefault();
+    } else {
+      console.error("Too many keywords");
     }
   };
 
@@ -55,6 +55,11 @@ const SearchBar = (props) => {
     updateDisplayedEvents(filtered);
   };
 
+  // Whenever the keywords or category change, update the displayed events.
+  useEffect(() => {
+    updateDisplayedEvents();
+  }, [keywords, category]);
+
   return (
     <div className="search-bar">
       {keywords.length > 0 && (
@@ -63,11 +68,13 @@ const SearchBar = (props) => {
             <b>Keywords: </b>
           </p>
           {keywords.map((keyword) => {
-            return <TagItem name={keyword} removeTag={removeKeyword} />;
+            return (
+              <TagItem key={keyword} name={keyword} removeTag={removeKeyword} />
+            );
           })}
         </div>
       )}
-      <form className="form-group" onSubmit={handleSubmit}>
+      <form className="form-group">
         <input
           className="form-control"
           type="text"
@@ -79,7 +86,9 @@ const SearchBar = (props) => {
         <select
           className="form-control"
           value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          onChange={(e) => {
+            setCategory(e.target.value);
+          }}
         >
           <option selected value="all">
             All Types
@@ -92,11 +101,6 @@ const SearchBar = (props) => {
             );
           })}
         </select>
-        <input
-          className="btn btn-primary btn-sm"
-          type="submit"
-          value="Search"
-        />
       </form>
     </div>
   );

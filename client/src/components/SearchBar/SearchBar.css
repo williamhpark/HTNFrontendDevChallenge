@@ -18,12 +18,12 @@
 }
 
 .search-bar form input[type="text"] {
-  width: 10rem;
+  width: 15rem;
   margin-bottom: 0.5rem;
 }
 
 .search-bar form select {
-  width: 10rem;
+  width: 15rem;
   margin-bottom: 0.5rem;
 }
 

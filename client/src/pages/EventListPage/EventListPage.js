@@ -55,29 +55,42 @@ const EventListPage = () => {
         />
       </div>
       {events.length > 0 ? (
-        eventsSorted.map((event) => {
-          // Display all public events and any private events only if a user is logged in.
-          if (
-            event.permission === "public" ||
-            (event.permission === "private" && userData.user)
-          ) {
-            return (
-              <Link
-                className="link event"
-                key={event.id}
-                to={`/${event.name.replace(/\s/g, "")}`}
-                onClick={() => setEventData(event)}
-              >
-                <h3>{event.name}</h3>
-                <p>{epochToDate(event.start_time)}</p>
-                <p>
-                  {epochToTime(event.start_time)} -{" "}
-                  {epochToTime(event.end_time)}
-                </p>
-              </Link>
-            );
-          }
-        })
+        // If the displayedEvents array is not empty and,
+        // if a user is not logged in, not every event in the displayedEvents array is private (in which case nothing would show),
+        // then list the events in the displayedEvents array
+        displayedEvents.length > 0 &&
+        (!userData.user
+          ? !displayedEvents.every((event) => {
+              return event.permission === "private";
+            })
+          : 1) ? (
+          eventsSorted.map((event) => {
+            // Display all public events and any private events only if a user is logged in.
+            if (
+              event.permission === "public" ||
+              (event.permission === "private" && userData.user)
+            ) {
+              return (
+                <Link
+                  className="link event"
+                  key={event.id}
+                  to={`/${event.name.replace(/\s/g, "")}`}
+                  onClick={() => setEventData(event)}
+                >
+                  <h3>{event.name}</h3>
+                  <p>{epochToDate(event.start_time)}</p>
+                  <p>
+                    {epochToTime(event.start_time)} -{" "}
+                    {epochToTime(event.end_time)}
+                  </p>
+                </Link>
+              );
+            }
+          })
+        ) : (
+          // Otherwise, show a "No results" message
+          <p>No results &#128549;</p>
+        )
       ) : (
         <p>Loading...</p>
       )}
