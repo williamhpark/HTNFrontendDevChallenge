@@ -18,7 +18,9 @@ const EventListPage = () => {
   const fetchData = async () => {
     const API_URL =
       "https://api.hackthenorth.com/v3/graphql?query={ events { id name event_type permission start_time end_time description speakers { name profile_pic } public_url private_url related_events } }";
-    const res = await axios.get(API_URL);
+    const res = await axios.get(API_URL, {
+      headers: { "Access-Control-Allow-Origin": "*" },
+    });
     setEvents(res.data.data.events);
     setDisplayedEvents(res.data.data.events);
   };

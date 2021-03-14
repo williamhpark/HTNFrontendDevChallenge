@@ -74,11 +74,11 @@ const EventPage = () => {
       <p>
         <b>Link: </b>
         {userData.user ? (
-          <a href={`${eventData.private_url}`} target="_blank">
+          <a href={`${eventData.private_url}`} target="_blank" rel="noreferrer">
             {eventData.private_url}
           </a>
         ) : (
-          <a href={`${eventData.public_url}`} target="_blank">
+          <a href={`${eventData.public_url}`} target="_blank" rel="noreferrer">
             {eventData.public_url}
           </a>
         )}
