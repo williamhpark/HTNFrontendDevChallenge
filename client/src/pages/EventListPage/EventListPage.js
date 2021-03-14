@@ -22,12 +22,12 @@ const EventListPage = () => {
     if (process.env.NODE_ENV === "production") {
       apiUrl = HEROKU_URL + apiUrl;
     }
+    console.log(apiUrl);
     const res = await axios.get(apiUrl, {
       headers: { "Access-Control-Allow-Origin": "*" },
     });
     setEvents(res.data.data.events);
     setDisplayedEvents(res.data.data.events);
-    console.log(apiUrl);
   };
 
   useEffect(() => {
@@ -35,10 +35,6 @@ const EventListPage = () => {
     // Clear the event data
     setEventData({});
   }, []);
-
-  useEffect(() => {
-    console.log(events);
-  }, [events]);
 
   const eventsSorted = displayedEvents.slice(0).sort((a, b) => {
     return a.start_time - b.start_time;
