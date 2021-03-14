@@ -45,7 +45,7 @@ const EventListPage = () => {
 
   return (
     <div className="event-list-page">
-      <h2>Events</h2>
+      <h1>Events</h1>
       <div className="search-bar-container">
         <SearchBar
           defaultData={events}

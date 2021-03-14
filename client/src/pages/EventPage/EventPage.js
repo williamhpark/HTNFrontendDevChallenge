@@ -15,7 +15,7 @@ const EventPage = () => {
 
   return (
     <div className="event-page">
-      <h1>{eventData.name}</h1>
+      <h2>{eventData.name}</h2>
       <div className="event-info-container">
         <p>
           <b>Event Type: </b>
