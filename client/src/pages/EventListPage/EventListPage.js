@@ -16,9 +16,13 @@ const EventListPage = () => {
 
   // Fetches all event data from the given endpoint
   const fetchData = async () => {
-    const API_URL =
+    let apiUrl =
       "https://api.hackthenorth.com/v3/graphql?query={ events { id name event_type permission start_time end_time description speakers { name profile_pic } public_url private_url related_events } }";
-    const res = await axios.get(API_URL, {
+    const HEROKU_URL = "https://htn-frontend-challenge.herokuapp.com/";
+    if (process.env.NODE_ENV === "production") {
+      apiUrl = HEROKU_URL + apiUrl;
+    }
+    const res = await axios.get(apiUrl, {
       headers: { "Access-Control-Allow-Origin": "*" },
     });
     setEvents(res.data.data.events);
