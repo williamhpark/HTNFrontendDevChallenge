@@ -36,6 +36,7 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
+    // Clear the user data
     setUserData({ token: undefined, user: undefined });
   }, []);
 
@@ -67,6 +68,7 @@ const LoginPage = () => {
           value="Login"
         />
       </form>
+      {/* Display the error message if one is returned from the internal API. */}
       {error && <p className="error-msg">{error}</p>}
     </div>
   );

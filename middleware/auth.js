@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 
+// Middleware used to validate the token in local storage.
 const auth = (req, res, next) => {
   try {
     const token = req.header("x-auth-token");

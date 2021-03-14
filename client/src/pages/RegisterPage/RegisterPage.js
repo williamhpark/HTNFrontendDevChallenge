@@ -33,7 +33,7 @@ const RegisterPage = () => {
       // Set the auth-token in the browser
       localStorage.setItem("auth-token", loginRes.data.token);
 
-      // Redirect user to the Home page
+      // Redirect user to the Event List Page
       history.push("/");
     } catch (err) {
       if (err.response.data.msg) {
@@ -43,6 +43,7 @@ const RegisterPage = () => {
   };
 
   useEffect(() => {
+    // Clear the user data
     setUserData({ token: undefined, user: undefined });
   }, []);
 
@@ -91,6 +92,7 @@ const RegisterPage = () => {
           value="Register"
         />
       </form>
+      {/* Display the error message if one is returned from the internal API. */}
       {error && <p className="error-msg">{error}</p>}
     </div>
   );

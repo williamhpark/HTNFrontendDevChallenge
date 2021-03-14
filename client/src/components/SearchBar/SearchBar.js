@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 import "./SearchBar.css";
 import TagItem from "../TagItem/TagItem";
+import { toTitleCase } from "../../utils/helperFunctions";
 
+// All event types in the HtN API data
 const EVENT_TYPES = ["workshop", "tech_talk", "activity"];
 
 const SearchBar = (props) => {
@@ -12,8 +14,10 @@ const SearchBar = (props) => {
 
   const updateDisplayedEvents = (keywordsArray) => {
     const filtered = props.defaultData.filter((item) => {
-      // The event name/description/speakers contains at least one of the keywords and matches the selected event type
+      // The event gets displayed if both conditions below are met.
       return (
+        // Condition 1
+        // True if no keywords have been inputted or the event's name/description/speakers contains at least one of the keywords.
         (keywordsArray.length === 0 ||
           keywordsArray.some(
             (keyword) =>
@@ -23,6 +27,8 @@ const SearchBar = (props) => {
                 speaker.name.toLowerCase().includes(keyword.toLowerCase())
               )
           )) &&
+        // Condition 2
+        // True if category is set to "all" or the event's category matches the selected category
         (category === "all" || item.event_type === category)
       );
     });
@@ -34,20 +40,13 @@ const SearchBar = (props) => {
     updateDisplayedEvents(keywords);
   };
 
+  // Adds the inputted keyword to the keywords array when the user clicks "Enter"
   const handleKeyDown = (e) => {
-    // Note: The max number of keywords is 5
+    // Note: The max number of keywords allowed is 5
     if (e.key === "Enter" && input && keywords.length < 5) {
       setKeywords([...keywords, input]);
       setInput("");
     }
-  };
-
-  const toTitleCase = (phrase) => {
-    return phrase
-      .toLowerCase()
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
   };
 
   const removeKeyword = (keyword) => {

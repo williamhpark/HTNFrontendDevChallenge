@@ -14,6 +14,7 @@ const Header = () => {
         <img src={logo} alt="Hack the North logo" />
       </Link>
       {userData.user ? (
+        // The Logout button is shown if a user is logged in.
         <div className="header-right">
           <p
             className="link"
@@ -23,6 +24,7 @@ const Header = () => {
           </p>
         </div>
       ) : (
+        // The Login/Register buttons are shown if no user is logged in.
         <div className="header-right">
           <Link className="login-btn link" to="/login">
             Login

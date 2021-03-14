@@ -3,6 +3,7 @@ import axios from "axios";
 
 const UserContext = createContext({});
 
+// Stores the data for a logged in user and validates the user.
 const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState({
     token: undefined,
