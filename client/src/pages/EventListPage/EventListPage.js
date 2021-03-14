@@ -18,7 +18,7 @@ const EventListPage = () => {
   const fetchData = async () => {
     let apiUrl =
       "https://api.hackthenorth.com/v3/graphql?query={ events { id name event_type permission start_time end_time description speakers { name profile_pic } public_url private_url related_events } }";
-    const HEROKU_URL = "https://htn-frontend-challenge.herokuapp.com/";
+    const HEROKU_URL = "https://cors-anywhere-htn.herokuapp.com/";
     if (process.env.NODE_ENV === "production") {
       apiUrl = HEROKU_URL + apiUrl;
     }
