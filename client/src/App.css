@@ -25,6 +25,11 @@ input[type="submit"] {
   width: 10rem;
 }
 
+h1,
+h2 {
+  font-weight: bold;
+}
+
 .app {
   padding: 3rem 2rem;
 }
