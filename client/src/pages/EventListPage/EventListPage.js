@@ -74,7 +74,8 @@ const EventListPage = () => {
                 <Link
                   className="link event"
                   key={event.id}
-                  to={`/${event.name.replace(/\s/g, "")}`}
+                  // Remove all spaces and forward slashes for the URL path
+                  to={`/${event.name.replace(/\s/g, "").replace(/\//g, "")}`}
                   onClick={() => setEventData(event)}
                 >
                   <h3>{event.name}</h3>
