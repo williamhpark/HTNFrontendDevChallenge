@@ -27,7 +27,7 @@ const App = () => {
               <Route exact path="/register">
                 <RegisterPage />
               </Route>
-              <Route exact path="/:id">
+              <Route exact path="/:event">
                 {({ match }) => <EventPage match={match} />}
               </Route>
               <Route exact path="/">
