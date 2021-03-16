@@ -18,16 +18,8 @@ const EventPage = (props) => {
 
   const fetchData = async () => {
     // The API URL to fetch a specific event's information.
-    let apiUrl = `https://api.hackthenorth.com/v3/graphql?query={ event(id: ${props.match.params.id}) { id name event_type permission start_time end_time description speakers { name profile_pic } public_url private_url related_events } }`;
-    // In production, the request is sent to a proxy that adds CORS headers to a request.
-    // This is done to fix the CORS error that occurs when the request is made to the API URl alone.
-    const HEROKU_URL = "https://cors-anywhere-htn.herokuapp.com/";
-    if (process.env.NODE_ENV === "production") {
-      apiUrl = HEROKU_URL + apiUrl;
-    }
-    const res = await axios.get(apiUrl, {
-      headers: { "Access-Control-Allow-Origin": "*" },
-    });
+    const API_URL = `https://api.hackthenorth.com/v3/graphql?query={ event(id: ${props.match.params.id}) { id name event_type permission start_time end_time description speakers { name profile_pic } public_url private_url related_events } }`;
+    const res = await axios.get(API_URL);
     setEventData(res.data.data.event);
   };
 
