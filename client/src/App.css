@@ -1,7 +1,11 @@
+/* Variables */
+
 :root {
   --highlight-color: #ffb6c1;
   --text-color: #424141;
 }
+
+/* General CSS */
 
 *,
 html {
@@ -29,6 +33,8 @@ h1,
 h2 {
   font-weight: bold;
 }
+
+/* Common/general classes CSS */
 
 .app {
   padding: 3rem 2rem;
@@ -64,6 +70,14 @@ h2 {
   margin-top: 2rem;
   text-align: center;
 }
+
+.full-page-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CSS Media Queries */
 
 @media (min-width: 768px) {
   .app {

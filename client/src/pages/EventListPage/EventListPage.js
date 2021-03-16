@@ -5,13 +5,11 @@ import { Link } from "react-router-dom";
 import "./EventListPage.css";
 import spinner from "../../assets/images/spinner.gif";
 import { UserContext } from "../../context/UserContext";
-import { EventContext } from "../../context/EventContext";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { epochToDate, epochToTime } from "../../utils/helperFunctions";
 
 const EventListPage = () => {
   const { userData } = useContext(UserContext);
-  const { setEventData } = useContext(EventContext);
 
   const [events, setEvents] = useState([]);
   const [displayedEvents, setDisplayedEvents] = useState([]);
@@ -35,8 +33,6 @@ const EventListPage = () => {
 
   useEffect(() => {
     fetchData();
-    // Clear the event data
-    setEventData({});
   }, []);
 
   // Sorts the events in order of start time (earlier events first)
@@ -67,8 +63,7 @@ const EventListPage = () => {
               className="link event"
               key={event.id}
               // Remove all spaces and forward slashes for the URL path
-              to={`/${event.name.replace(/\s/g, "").replace(/\//g, "")}`}
-              onClick={() => setEventData(event)}
+              to={`/event/${event.id}`}
             >
               <h3>{event.name}</h3>
               <p>{epochToDate(event.start_time)}</p>
