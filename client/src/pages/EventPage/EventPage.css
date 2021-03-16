@@ -5,10 +5,14 @@
   justify-content: center;
 }
 
+/* Event title */
+
 .event-page h3 {
   text-align: center;
   font-weight: bold;
 }
+
+/* Event information (type, date, time) */
 
 .event-info-container {
   margin-top: 1rem;
@@ -18,8 +22,50 @@
   margin: 0;
 }
 
+/* Event speakers (picture and name) */
+
+.speakers-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1.5rem;
+}
+
+.speaker-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.speaker-container img {
+  width: 10rem;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+/* Image loading CSS */
+
+.smooth-image {
+  transition: opacity 0.5s;
+}
+
+.image-visible {
+  opacity: 1;
+}
+
+.image-hidden {
+  opacity: 0;
+}
+
+/* Event description */
+
 .event-description {
   margin-top: 1rem;
+}
+
+/* Event link */
+
+.event-link {
+  text-align: center;
 }
 
 @media (min-width: 768px) {

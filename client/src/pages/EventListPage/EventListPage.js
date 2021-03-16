@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 import "./EventListPage.css";
+import spinner from "../../assets/images/spinner.gif";
 import { UserContext } from "../../context/UserContext";
 import { EventContext } from "../../context/EventContext";
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -43,6 +44,47 @@ const EventListPage = () => {
     return a.start_time - b.start_time;
   });
 
+  const renderEventLinks = () => {
+    // If the displayedEvents array is not empty and,
+    // if a user is not logged in, not every event in the displayedEvents array is private (in which case nothing would show),
+    // then list the events in the displayedEvents array
+    if (
+      displayedEvents.length > 0 &&
+      (!userData.user
+        ? !displayedEvents.every((event) => {
+            return event.permission === "private";
+          })
+        : 1)
+    ) {
+      return eventsSorted.map((event) => {
+        // Display all public events and any private events only if a user is logged in.
+        if (
+          event.permission === "public" ||
+          (event.permission === "private" && userData.user)
+        ) {
+          return (
+            <Link
+              className="link event"
+              key={event.id}
+              // Remove all spaces and forward slashes for the URL path
+              to={`/${event.name.replace(/\s/g, "").replace(/\//g, "")}`}
+              onClick={() => setEventData(event)}
+            >
+              <h3>{event.name}</h3>
+              <p>{epochToDate(event.start_time)}</p>
+              <p>
+                {epochToTime(event.start_time)} - {epochToTime(event.end_time)}
+              </p>
+            </Link>
+          );
+        }
+      });
+    } else {
+      // Otherwise, show a "No results" message
+      return <p>No results &#128549;</p>;
+    }
+  };
+
   return (
     <div className="event-list-page">
       <h2>Events</h2>
@@ -54,46 +96,12 @@ const EventListPage = () => {
           setDisplayedData={setDisplayedEvents}
         />
       </div>
+      {/* If there is event data from the API call, display them. */}
       {events.length > 0 ? (
-        // If the displayedEvents array is not empty and,
-        // if a user is not logged in, not every event in the displayedEvents array is private (in which case nothing would show),
-        // then list the events in the displayedEvents array
-        displayedEvents.length > 0 &&
-        (!userData.user
-          ? !displayedEvents.every((event) => {
-              return event.permission === "private";
-            })
-          : 1) ? (
-          eventsSorted.map((event) => {
-            // Display all public events and any private events only if a user is logged in.
-            if (
-              event.permission === "public" ||
-              (event.permission === "private" && userData.user)
-            ) {
-              return (
-                <Link
-                  className="link event"
-                  key={event.id}
-                  // Remove all spaces and forward slashes for the URL path
-                  to={`/${event.name.replace(/\s/g, "").replace(/\//g, "")}`}
-                  onClick={() => setEventData(event)}
-                >
-                  <h3>{event.name}</h3>
-                  <p>{epochToDate(event.start_time)}</p>
-                  <p>
-                    {epochToTime(event.start_time)} -{" "}
-                    {epochToTime(event.end_time)}
-                  </p>
-                </Link>
-              );
-            }
-          })
-        ) : (
-          // Otherwise, show a "No results" message
-          <p>No results &#128549;</p>
-        )
+        renderEventLinks()
       ) : (
-        <p>Loading...</p>
+        // Display a loader if there are no events retrieved yet.
+        <img src={spinner} alt="Loading spinner" />
       )}
     </div>
   );

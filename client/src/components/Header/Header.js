@@ -8,6 +8,13 @@ import { UserContext } from "../../context/UserContext";
 const Header = () => {
   const { userData, setUserData } = useContext(UserContext);
 
+  const logout = () => {
+    // Clear the user data in context
+    setUserData({ token: undefined, user: undefined });
+    // Clear the auth-token in local storage
+    localStorage.setItem("auth-token", "");
+  };
+
   return (
     <div className="header">
       <Link className="logo" to="/">
@@ -16,10 +23,7 @@ const Header = () => {
       {userData.user ? (
         // The Logout button is shown if a user is logged in.
         <div className="header-right">
-          <p
-            className="link"
-            onClick={() => setUserData({ token: undefined, user: undefined })}
-          >
+          <p className="link" onClick={logout}>
             Logout
           </p>
         </div>
