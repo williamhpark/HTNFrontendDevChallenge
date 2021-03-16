@@ -23,9 +23,9 @@ const Header = () => {
       {userData.user ? (
         // The Logout button is shown if a user is logged in.
         <div className="header-right">
-          <p className="link" onClick={logout}>
+          <Link className="link" to="/" onClick={logout}>
             Logout
-          </p>
+          </Link>
         </div>
       ) : (
         // The Login/Register buttons are shown if no user is logged in.
