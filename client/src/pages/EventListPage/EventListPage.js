@@ -55,7 +55,6 @@ const EventListPage = () => {
             <Link
               className="link event"
               key={event.id}
-              // Remove all spaces and forward slashes for the URL path
               to={`/event/${event.id}`}
             >
               <h3>{event.name}</h3>
@@ -68,7 +67,7 @@ const EventListPage = () => {
         }
       });
     } else {
-      // Otherwise, show a "No results" message
+      // Otherwise, show a "No results :(" message
       return <p>No results &#128549;</p>;
     }
   };
