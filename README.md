@@ -10,6 +10,14 @@ My submission for the Hack the North 2021 Frontend Developer Challenge.
 **Database:** MongoDB  
 Deployed using Heroku.
 
+**Key librairies/dependencies:**
+
+- Bootstrap
+- React Router
+- Axios
+- Bcryptjs
+- Mongoose
+
 ## Writeup
 
 ### How did you plan out the structure and design of it?
